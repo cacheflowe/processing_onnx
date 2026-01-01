@@ -110,6 +110,10 @@ void initializeONNX() {
     env = OrtEnvironment.getEnvironment();
     SessionOptions sessionOptions = new SessionOptions();
     
+    // Optimize for performance
+    sessionOptions.setOptimizationLevel(SessionOptions.OptLevel.ALL_OPT);
+    sessionOptions.setIntraOpNumThreads(2);  // Use multiple threads for parallel ops, but don't use more than is helpful!
+        
     // Load model from data folder
     String modelPath = dataPath("movenet-multipose-lightning.onnx");
     println("Loading model from: " + modelPath);
